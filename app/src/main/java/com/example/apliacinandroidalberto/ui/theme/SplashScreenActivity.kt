@@ -1,6 +1,7 @@
 package com.example.apliacinandroidalberto.ui.theme
 
 import android.content.Intent
+import android.hardware.camera2.params.BlackLevelPattern
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -11,7 +12,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -28,6 +31,7 @@ class SplashScreenActivity : ComponentActivity() {
     }
 }
 
+
 @Composable
 fun SplashScreen() {
     val context = LocalContext.current
@@ -43,11 +47,17 @@ fun SplashScreen() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "$greeting!", style = MaterialTheme.typography.headlineMedium)
+        Text(text = "$greeting!", style = MaterialTheme.typography.headlineMedium, color = Color.Black)
         Spacer(modifier = Modifier.height(16.dp))
-        Button(onClick = {
+        Button(
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color.Green,
+                contentColor = Color.White
+            ),
+            onClick = {
             context.startActivity(Intent(context, MainActivity::class.java))
-        }) {
+        })
+        {
             Text(stringResource(id = R.string.continue_button))
         }
     }
