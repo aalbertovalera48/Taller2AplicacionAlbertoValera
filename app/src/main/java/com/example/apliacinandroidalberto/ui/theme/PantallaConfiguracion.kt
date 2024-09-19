@@ -9,56 +9,58 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import android.content.Context
 
 @Composable
 fun PantallaConfiguracion(
-    backgroundColor: Color, // Color de fondo actual
-    onBackgroundColorChange: (Color) -> Unit, // Función para cambiar el color de fondo
-    onGoBack: () -> Unit // Función para volver a la pantalla principal
+    backgroundColor: Color,
+    onBackgroundColorChange: (Color) -> Unit,
+    onGoBack: () -> Unit
 ) {
-    val context = LocalContext.current // Contexto de la actividad actual
-
-    // Columna para organizar los elementos verticalmente
+    val context = LocalContext.current
     Column(
         modifier = Modifier
-            .fillMaxSize() // Ocupar todo el espacio disponible
-            .background(backgroundColor) // Aplicar el color de fondo
-            .padding(16.dp), // Agregar padding
-        verticalArrangement = Arrangement.Center, // Centrar verticalmente
-        horizontalAlignment = Alignment.CenterHorizontally // Centrar horizontalmente
+            .fillMaxSize()
+            .background(backgroundColor)
+            .padding(16.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
-        // Composable para la selección de color
-        ColorSelection(
+        SeleccionColor(
             selectedColor = backgroundColor,
-            onColorSelected = onBackgroundColorChange
+            onColorSelected = {
+                saveBackgroundColor(context, it)
+                onBackgroundColorChange(it)
+            }
         )
 
-        Spacer(modifier = Modifier.height(16.dp)) // Espacio entre elementos
+        Spacer(modifier = Modifier.height(16.dp))
 
-        // Botón para volver a la pantalla principal
         Button(onClick = onGoBack) {
             Text("Volver a la pantalla principal")
         }
     }
 }
 
-// Composable para la selección de colores
 @Composable
-fun ColorSelection(
-    selectedColor: Color, // Color seleccionado actualmente
-    onColorSelected: (Color) -> Unit // Función para cambiar el color seleccionado
+fun SeleccionColor(
+    selectedColor: Color,
+    onColorSelected: (Color) -> Unit
 ) {
-    val colors = listOf(Color.White, Color.LightGray, Color.Cyan, Color.Yellow, Color.Red, Color.Green) // Lista de colores disponibles
+    val colors = listOf(Color.White, Color.LightGray, Color.Cyan, Color.Yellow, Color.Red, Color.Green)
 
     Column {
-        Text(text = "Selecciona un color de fondo", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold, modifier = Modifier.align(Alignment.CenterHorizontally))
-        Spacer(modifier = Modifier.height(30.dp)
-
+        Text(
+            text = "Selecciona un color de fondo",
+            style = MaterialTheme.typography.titleMedium,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.align(Alignment.CenterHorizontally)
         )
+        Spacer(modifier = Modifier.height(30.dp))
 
         Row {
             colors.forEach { color ->
@@ -72,12 +74,11 @@ fun ColorSelection(
     }
 }
 
-// Composable para un botón de color
 @Composable
 fun ColorButton(
-    color: Color, // Color del botón
-    isSelected: Boolean, // Indica si el botón está seleccionado
-    onClick: () -> Unit // Función a ejecutar al hacer clic en el botón
+    color: Color,
+    isSelected: Boolean,
+    onClick: () -> Unit
 ) {
     Button(
         onClick = onClick,
@@ -97,4 +98,18 @@ fun ColorButton(
             )
         }
     }
+}
+
+fun saveBackgroundColor(context: Context, color: Color) {
+    val sharedPref = context.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+    with(sharedPref.edit()) {
+        putInt("backgroundColor", color.toArgb())
+        apply()
+    }
+}
+
+fun getBackgroundColor(context: Context): Color {
+    val sharedPref = context.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+    val colorArgb = sharedPref.getInt("backgroundColor", Color.White.toArgb())
+    return Color(colorArgb)
 }

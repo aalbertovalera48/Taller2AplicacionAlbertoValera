@@ -2,5 +2,4 @@
 <resources>
 
     <style name="Theme.ApliaciónAndroidAlberto" parent="android:Theme.Material.Light.NoActionBar" />
-
 </resources>
