@@ -22,7 +22,6 @@ class PantallaConfiguracionActivity : ComponentActivity() {
 
         setContent {
             AppTheme {
-                // Un contenedor Surface usando el color 'background' del tema
                 Surface(color = MaterialTheme.colorScheme.background) {
                     SettingsScreenContent()
                 }

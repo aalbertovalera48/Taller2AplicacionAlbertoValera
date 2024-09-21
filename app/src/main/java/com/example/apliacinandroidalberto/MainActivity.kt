@@ -14,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.apliacinandroidalberto.ui.theme.PantallaConfiguracionActivity
@@ -28,6 +29,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen() {
     var name by remember { mutableStateOf("") }
@@ -37,38 +39,67 @@ fun MainScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp),
+            .padding(24.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Text(
+            text = "Bienvenido",
+            style = MaterialTheme.typography.headlineLarge,
+            color = colorResource(R.color.teal_200)
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
         OutlinedTextField(
             value = name,
             onValueChange = { name = it },
-            label = { Text("Nombre") }
+            label = { Text("Escribe tu nombre") },
+            modifier = Modifier.fillMaxWidth(),
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedBorderColor = MaterialTheme.colorScheme.primary,
+                unfocusedBorderColor = Color.Gray
+            )
         )
-        Spacer(modifier = Modifier.height(16.dp))
+
+        Spacer(modifier = Modifier.height(24.dp))
+
         Button(
+            onClick = { savedName = name },
+            modifier = Modifier.fillMaxWidth(),
             colors = ButtonDefaults.buttonColors(
-                containerColor = Color.Green,
-                contentColor = Color.Black ),
-            onClick = { savedName = name }) {
-            Spacer(modifier = Modifier.height(16.dp))
-                Text("Guardar")
-            }
+                containerColor = colorResource(R.color.teal_200),
+                contentColor = Color.Black
+            )
+        ) {
+            Text("Guardar")
+        }
+
         Spacer(modifier = Modifier.height(16.dp))
-        Text(text = "Nombre guardado: $savedName")
-        Spacer(modifier = Modifier.height(16.dp))
+
+        Text(
+            text = "Nombre guardado:> $savedName",
+            style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme.colorScheme.onSurface
+        )
+
+        Spacer(modifier = Modifier.height(24.dp))
+
         Button(
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color.Green,
-                contentColor = Color.Black ),
             onClick = {
-            context.startActivity(Intent(context, PantallaConfiguracionActivity::class.java))
-        }) {
-            Text("Ir a la pantalla de configuracion")
+                context.startActivity(Intent(context, PantallaConfiguracionActivity::class.java))
+            },
+            modifier = Modifier.fillMaxWidth(),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = colorResource(R.color.teal_700),
+                contentColor = Color.White
+            )
+        ) {
+            Text("Ir a configuración")
         }
     }
 }
+
 
 @Preview(showBackground = true)
 @Composable

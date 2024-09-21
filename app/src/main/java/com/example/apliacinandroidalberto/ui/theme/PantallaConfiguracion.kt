@@ -14,6 +14,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import android.content.Context
+import androidx.compose.ui.res.colorResource
+import com.example.apliacinandroidalberto.R
 
 @Composable
 fun PantallaConfiguracion(
@@ -45,7 +47,6 @@ fun PantallaConfiguracion(
         }
     }
 }
-
 @Composable
 fun SeleccionColor(
     selectedColor: Color,
@@ -58,7 +59,8 @@ fun SeleccionColor(
             text = "Selecciona un color de fondo",
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.Bold,
-            modifier = Modifier.align(Alignment.CenterHorizontally)
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+            color = Color.Black
         )
         Spacer(modifier = Modifier.height(30.dp))
 
@@ -73,6 +75,7 @@ fun SeleccionColor(
         }
     }
 }
+
 
 @Composable
 fun ColorButton(

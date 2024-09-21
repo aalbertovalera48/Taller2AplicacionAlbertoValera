@@ -11,6 +11,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.platform.LocalContext
@@ -43,21 +44,31 @@ fun SplashScreen() {
     }
 
     Column(
-        modifier = Modifier.fillMaxSize().background(Color.White), // Add this line
+        modifier = Modifier
+            .fillMaxSize()
+            .background(brush = Brush.verticalGradient(
+                colors = listOf(colorResource(R.color.teal_200), colorResource(R.color.teal_700))
+            )),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "$greeting!", style = MaterialTheme.typography.headlineMedium, color = Color.Black)
-        Spacer(modifier = Modifier.height(16.dp))
+        Text(
+            text = "$greeting!",
+            style = MaterialTheme.typography.headlineLarge,
+            color = MaterialTheme.colorScheme.onPrimary
+        )
+
+        Spacer(modifier = Modifier.height(24.dp))
+
         Button(
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color.Green,
-                contentColor = Color.White
-            ),
             onClick = {
-            context.startActivity(Intent(context, MainActivity::class.java))
-        })
-        {
+                context.startActivity(Intent(context, MainActivity::class.java))
+            },
+            colors = ButtonDefaults.buttonColors(
+                containerColor = colorResource(R.color.purple_700),
+                contentColor = Color.White
+            )
+        ) {
             Text(stringResource(id = R.string.continue_button))
         }
     }

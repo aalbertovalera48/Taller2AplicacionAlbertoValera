@@ -5,30 +5,19 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
 
 @Composable
-fun AppTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    backgroundColor: Color = White, // Color de fondo predeterminado
-    content: @Composable () -> Unit
-) {
-    val colorScheme = if (darkTheme) {
-        darkColorScheme(
-            primary = Color.Blue,
-            secondary = Color.LightGray,
-            background = backgroundColor // Usar el color de fondo proporcionado
-        )
-    } else {
-        lightColorScheme(
-            primary = Color.Blue,
-            secondary = Color.LightGray,
-            background = backgroundColor // Usar el color de fondo proporcionado
-        )
-    }
-
+fun AppTheme(content: @Composable () -> Unit) {
     MaterialTheme(
-        colorScheme = colorScheme,
-        typography = Typography,
+        colorScheme = CustomColorPalette2,
+        typography = Typography(
+            headlineMedium = TextStyle(fontWeight = FontWeight.Bold, fontSize = 24.sp),
+            bodyLarge = TextStyle(fontSize = 16.sp),
+            titleMedium = TextStyle(fontWeight = FontWeight.Medium, fontSize = 20.sp)
+        ),
         content = content
     )
 }
