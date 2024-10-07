@@ -14,8 +14,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import android.content.Context
-import androidx.compose.ui.res.colorResource
-import com.example.apliacinandroidalberto.R
+
 
 @Composable
 fun PantallaConfiguracion(

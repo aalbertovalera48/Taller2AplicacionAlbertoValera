@@ -19,12 +19,33 @@ import com.example.apliacinandroidalberto.ui.theme.Servicio
 import com.example.apliacinandroidalberto.ui.theme.TareaEnSegundoPlano
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d("MainActivity", "onCreate: Actividad creada")
         setContent {
             MainScreen()
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.d("MainActivity", "onStart: Actividad visible")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("MainActivity", "onResume: Actividad en primer plano")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d("MainActivity", "onPause: Actividad pausada")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d("MainActivity", "onStop: Actividad ya no visible")
     }
 }
 
