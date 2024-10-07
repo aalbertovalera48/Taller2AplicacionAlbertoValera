@@ -1,7 +1,7 @@
 # README - Alberto Valera - Aplicación Android: Gestión de Tareas en Segundo Plano
 
 ## Link al Repositorio GitHub
-
+https://github.com/aalbertovalera48/Taller2AplicacionAlbertoValera.git
 
 ## Unidad de Aprendizaje
 
